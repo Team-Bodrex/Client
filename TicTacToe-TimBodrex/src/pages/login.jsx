@@ -1,9 +1,49 @@
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 export default function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const codeParam = urlParams.get("code");
+  function getGithub() {
+    if (codeParam && localStorage.getItem("token") == null) {
+      async function getAccessToken() {
+        try {
+          const { data } = await axios({
+            method: "get",
+            url:
+              import.meta.env.VITE_API_BASE_URL +
+              "/github-login?code=" +
+              codeParam,
+          });
+          console.log(data, "<<<<<client");
+          if (data.token) {
+            localStorage.setItem("token", data.token);
+            localStorage.email = data.email;
+            localStorage.username = data.username;
+          }
+          navigate("/");
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      getAccessToken();
+    }
+  }
+
+  useEffect(() => {
+    getGithub();
+  }, []);
   return (
     <>
       <div class="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md max-w-md mx-auto mt-8">
         <h2 class="text-2xl font-bold text-center mb-4">Login</h2>
-        <form class="space-y-4">
+        <form class="space-y-4" onSubmit={submitLogin}>
           <div>
             <label
               for="email"
@@ -17,7 +57,8 @@ export default function Login() {
               name="email"
               class="w-full px-3 py-2 border dark:border-zinc-600 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
               placeholder="Enter your email"
-              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -33,7 +74,8 @@ export default function Login() {
               name="password"
               class="w-full px-3 py-2 border dark:border-zinc-600 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
               placeholder="Enter your password"
-              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <button
@@ -48,8 +90,12 @@ export default function Login() {
             Or login with
           </p>
           <div class="flex justify-center space-x-4 mt-2">
-            <button class="bg-red-600 text-white p-2 rounded-lg">Google</button>
-            <button class="bg-black text-white p-2 rounded-lg">GitHub</button>
+            <button
+              onClick={handleGithubLogin}
+              class="bg-black text-white p-2 rounded-lg"
+            >
+              GitHub
+            </button>
           </div>
         </div>
       </div>
