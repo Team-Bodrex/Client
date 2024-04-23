@@ -39,6 +39,33 @@ export default function Login() {
   useEffect(() => {
     getGithub();
   }, []);
+  const submitLogin = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      Swal.fire("Error", "Email and password are required", "error");
+      return;
+    }
+    try {
+      let { data } = await axios({
+        url: import.meta.env.VITE_API_BASE_URL + "/login",
+        method: "POST",
+        data: {
+          email: email,
+          password: password,
+        },
+      });
+      localStorage.setItem("token", data.access_token);
+      navigate("/");
+      console.log(data);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        Swal.fire("Error", "Invalid email or password", "error");
+      } else {
+        Swal.fire("Error", "An error occurred while logging in", "error");
+      }
+      console.log(error.response);
+    }
+  };
   return (
     <>
       <div class="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md max-w-md mx-auto mt-8">
