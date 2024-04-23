@@ -66,6 +66,18 @@ export default function Login() {
       console.log(error.response);
     }
   };
+  async function handleGithubLogin() {
+    try {
+      window.location.assign(
+        `https://github.com/login/oauth/authorize?client_id=${
+          import.meta.env.VITE_CLIENT_ID_GITHUB
+        }`
+      );
+      // console.log(data.access_token);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
       <div class="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md max-w-md mx-auto mt-8">
