@@ -76,6 +76,7 @@ function Game() {
     const result = await Swal.fire({
       title: "Enter your name",
       input: "text",
+      inputValue: localStorage.username,
       showCancelButton: true,
       inputValidator: (value) => {
         if (!value) {
@@ -222,7 +223,7 @@ function Game() {
         <h2>You are playing against {opponentName}</h2>
       )}
       {finishedState && finishedState === "opponentLeftMatch" && (
-        <h2>You won the match, Opponent has left</h2>
+        <h2>You won the match, {opponentName} has left the room!</h2>
       )}
     </div>
   );

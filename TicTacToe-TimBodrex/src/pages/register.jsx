@@ -30,7 +30,7 @@ export default function Register() {
     } catch (error) {
       console.log(error)
       if (error.response && error.response.data.message) {
-        Swal.fire("Error", error.response.data.message, "error");
+        Swal.fire("Error", error.response.data.message[0], "error");
       } else {
         Swal.fire("Error", "An error occurred while registering", "error");
       }
@@ -46,7 +46,7 @@ export default function Register() {
             "url('https://w0.peakpx.com/wallpaper/128/237/HD-wallpaper-tic-tac-toe-game-blue-background-ultra-games-other-games-color-game-design-blue-tictactoe-chalkboard-chalk-diagonal-row-winner-solved-grid-xsandos-noughtsandcrosses-blackboard.jpg')",
         }}
       >
-        <div className="flex justify-center items-center min-h-screen">
+        <div className="flex justify-center items-center min-h-screen ">
           <div className="bg-gradient-to-r from-gray-700 to-blue-400 dark:from-zinc-800 dark:to-zinc-600 p-4 rounded-lg shadow-md p-8 rounded-lg w-full max-w-md bg-opacity-50">
             <h2 className="text-2xl font-bold text-center text-white dark:text-zinc-300 mb-4">
               Register
@@ -55,7 +55,7 @@ export default function Register() {
               <div>
                 <label
                   htmlFor="username"
-                  className="block text-sm font-medium text-white dark:text-zinc-300"
+                  className="block text-sm font-medium text-white dark:text-zinc-300 mx-2 my-1"
                 >
                   Username
                 </label>
@@ -72,7 +72,7 @@ export default function Register() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-white dark:text-zinc-300"
+                  className="block text-sm font-medium text-white dark:text-zinc-300 mx-2 my-1"
                 >
                   Email
                 </label>
@@ -89,7 +89,7 @@ export default function Register() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-white dark:text-zinc-300"
+                  className="block text-sm font-medium text-white dark:text-zinc-300 mx-2 my-1"
                 >
                   Password
                 </label>
@@ -106,13 +106,17 @@ export default function Register() {
               <button
                 type="submit"
                 className="w-full bg-blue-500 text-white p-2 rounded-lg"
+                style={{ margin: "5% 0", marginTop: "7%" }}
               >
                 Register
               </button>
               <div className="text-center text-sm mt-4">
-                <Link to="/login" className="text-blue-400">
-                  Sign In?
-                </Link>
+                <p style={{ color: "white" }}>
+                  Already have an account?{" "}
+                  <Link to="/login" className="text-blue-300">
+                    Sign In Instead?
+                  </Link>
+                </p>
               </div>
             </form>
           </div>
