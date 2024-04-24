@@ -4,7 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function Register() {
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+  const submitRegister = async (e) => {
+    e.preventDefault();
+    if (!email || !password || !username) {
+      Swal.fire("Error", "Username, email, and password are required", "error");
       return;
     }
     try {
