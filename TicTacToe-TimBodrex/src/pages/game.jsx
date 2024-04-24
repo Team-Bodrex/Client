@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import Square from "../components/square";
 import "./game.css";
 import Swal from "sweetalert2";
+import socket from "../socket/socket";
 
 function Game() {
   const [gameState, setGameState] = useState([
@@ -14,7 +15,7 @@ function Game() {
   const [finishedState, setFinishedState] = useState(false);
   const [finishedArrayState, setFinishedArrayState] = useState([]);
   const [playOnline, setPlayOnline] = useState(false);
-  const [socket, setSocket] = useState(null);
+  // const [socket, setSocket] = useState(null);
   const [playerName, setPlayerName] = useState("");
   const [opponentName, setOpponentName] = useState(null);
   const [playingAs, setPlayingAs] = useState(null);
@@ -97,15 +98,17 @@ function Game() {
     const username = result.value;
     setPlayerName(username);
 
-    const newSocket = io("http://localhost:3000", {
-      autoConnect: true,
-    });
+    // const newSocket = io("http://localhost:3000", {
+    //   autoConnect: true,
+    // });
 
-    newSocket?.emit("request_to_play", {
+    socket.connect();
+
+    socket.emit("request_to_play", {
       playerName: username,
     });
 
-    setSocket(newSocket);
+    // setSocket(newSocket);
   };
 
   useEffect(() => {
@@ -139,7 +142,7 @@ function Game() {
     });
 
     return () => {
-      socket?.disconnect();
+      // socket?.disconnect();
     };
   }, [socket]);
 
