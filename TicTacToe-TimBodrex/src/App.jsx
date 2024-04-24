@@ -1,11 +1,36 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  redirect,
+} from "react-router-dom";
 import Login from "./pages/login";
-import Register from "./pages/register";
+import Game from "./pages/game";
+import Home from "./pages/home";
+// import Register from "./pages/register";
+
 function App() {
   const router = createBrowserRouter([
     {
       path: "/login",
       element: <Login />,
+      // loader: () => {
+      //   if (localStorage.access_token) {
+      //     return redirect("/");
+      //   }
+      //   return null;
+      // },
+    },
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/home",
+      element: <Home />,
+    },
+    {
+      path: "/game",
+      element: <Game />,
     },
   ]);
 
