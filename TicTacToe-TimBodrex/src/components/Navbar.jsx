@@ -11,6 +11,9 @@ export default function Navbar() {
   return (
     <div className="bg-gradient-to-r from-gray-700 to-blue-400 p-4 flex flex-col sm:flex-row justify-between items-center">
       <Link to="/" className="text-white font-bold text-xl mb-4 sm:mb-0">
+        HOME
+      </Link>
+      <Link to="#" className="text-white font-bold text-xl mb-4 sm:mb-0">
         TIC TAC TOE X/O
       </Link>
       <div className="flex space-x-4">

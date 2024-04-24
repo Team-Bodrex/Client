@@ -48,7 +48,6 @@ export default function Login() {
     getGithub();
   }, []);
 
-  // Untuk Login biasa
   const submitLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {

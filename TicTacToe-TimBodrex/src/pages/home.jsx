@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import socket from "../socket/socket";
+import Sidebar from "../components/SideBar";
+import ChatBox from "../components/ChatBox";
+
 
 export default function Home() {
   const [users, setUsers] = useState([]);
@@ -23,8 +23,6 @@ export default function Home() {
 
     setNewMessage("");
   }
-  //bisa juga pakai socket auth untuk menggantikan localStorage username
-  // console.log(socket.auth.username);
 
   useEffect(() => {
     socket.auth = {
@@ -51,41 +49,17 @@ export default function Home() {
   }, []);
 
   return (
-    <>
-      <h1>Temporary Chat Home</h1>
-      <h2>Online Users:</h2>
-      {users.map((user) => {
-        return (
-          <p>
-            <b>{user.username}</b>
-          </p>
-        );
-      })}
-      <br />
-      <br />
-      <a href="/game">PLAY GAME</a>
-      <br />
-      <br />
-      <h2>Send Chat:</h2>
-      <form onSubmit={handleSendMessage}>
-        <input
-          type="text"
-          placeholder="Input message..."
-          onChange={handleNewMessage}
-          value={newMessage}
-        />
-        <button type="submit">Send Chat</button>
-      </form>
-      <h2>Chat Box:</h2>
-      {messages.map((msg) => {
-        return msg.from === localStorage.username ? (
-          <p>You: {msg.message}</p>
-        ) : (
-          <p>
-            {msg.from}: {msg.message}
-          </p>
-        );
-      })}
-    </>
+    <div className="flex h-screen">
+      <Sidebar users={users} />
+      <ChatBox
+        messages={messages}
+        newMessage={newMessage}
+        handleNewMessage={handleNewMessage}
+        handleSendMessage={handleSendMessage}
+      />
+  
+    </div>
   );
 }
+
+

@@ -1,13 +1,5 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  redirect,
-} from "react-router-dom";
-import Login from "./pages/login";
-import Game from "./pages/game";
-import Home from "./pages/home";
-import MainLayout from "./pages/MainLayout";
-import Register from "./pages/register";
+import { RouterProvider } from "react-router-dom";
+
 
 function App() {
   const router = createBrowserRouter([
@@ -59,4 +51,10 @@ function App() {
   return <RouterProvider router={router} />;
 }
 
-export default App;
+function App() {
+  return (
+    <>
+    <RouterProvider/>
+    </>
+  )
+}
