@@ -14,19 +14,31 @@ function App() {
     {
       path: "/login",
       element: <Login />,
-      // loader: () => {
-      //   if (localStorage.access_token) {
-      //     return redirect("/");
-      //   }
-      //   return null;
-      // },
+      loader: () => {
+        if (localStorage.token) {
+          return redirect("/");
+        }
+        return null;
+      },
     },
     {
       path: "/register",
       element: <Register />,
+      loader: () => {
+        if (localStorage.token) {
+          return redirect("/");
+        }
+        return null;
+      },
     },
     {
       element: <MainLayout />,
+      loader: () => {
+        if (!localStorage.token) {
+          return redirect("/login");
+        }
+        return null;
+      },
       children: [
         {
           path: "/",
