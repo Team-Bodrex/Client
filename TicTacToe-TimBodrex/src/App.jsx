@@ -6,7 +6,8 @@ import {
 import Login from "./pages/login";
 import Game from "./pages/game";
 import Home from "./pages/home";
-// import Register from "./pages/register";
+import MainLayout from "./pages/MainLayout";
+import Register from "./pages/register";
 
 function App() {
   const router = createBrowserRouter([
@@ -21,16 +22,25 @@ function App() {
       // },
     },
     {
-      path: "/",
-      element: <Home />,
+      path: "/register",
+      element: <Register />,
     },
     {
-      path: "/home",
-      element: <Home />,
-    },
-    {
-      path: "/game",
-      element: <Game />,
+      element: <MainLayout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "/home",
+          element: <Home />,
+        },
+        {
+          path: "/game",
+          element: <Game />,
+        },
+      ],
     },
   ]);
 
