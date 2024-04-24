@@ -10,6 +10,10 @@ export default function Login() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const codeParam = urlParams.get("code");
+
+  console.log(email, password);
+
+  // Untuk Login GITHUB
   function getGithub() {
     if (codeParam && localStorage.getItem("token") == null) {
       async function getAccessToken() {
@@ -39,6 +43,8 @@ export default function Login() {
   useEffect(() => {
     getGithub();
   }, []);
+
+  // Untuk Login biasa
   const submitLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -54,9 +60,11 @@ export default function Login() {
           password: password,
         },
       });
-      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("token", data.token);
+      localStorage.email = data.email;
+      localStorage.username = data.username;
+
       navigate("/");
-      console.log(data);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         Swal.fire("Error", "Invalid email or password", "error");
