@@ -58,13 +58,13 @@ export default function Register() {
                   Username
                 </label>
                 <input
-                  type=""
-                  id=""
-                  name=""
+                  type="username"
+                  id="username"
+                  name="username"
                   className="w-full px-3 py-2 border dark:border-zinc-600 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                   placeholder="Enter your username"
-                  value=""
-                  onChange=""
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div>
@@ -75,13 +75,13 @@ export default function Register() {
                   Email
                 </label>
                 <input
-                  type=""
-                  id=""
-                  name=""
+                  type="email"
+                  id="email"
+                  name="email"
                   className="w-full px-3 py-2 border dark:border-zinc-600 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                   placeholder="Enter your email"
-                  value=""
-                  onChange=""
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
