@@ -3,6 +3,7 @@ import Square from "../components/square";
 import "./game.css";
 import Swal from "sweetalert2";
 import socket from "../socket/socket";
+import { Link } from "react-router-dom";
 
 function Game() {
   const [gameState, setGameState] = useState([
@@ -212,7 +213,7 @@ function Game() {
           finishedState !== "draw" && (
             <h3 className="finished-state">
               {finishedState === playingAs ? "You " : finishedState} won the
-              game
+              game.
             </h3>
           )}
         {finishedState &&
@@ -227,6 +228,15 @@ function Game() {
       {finishedState && finishedState === "opponentLeftMatch" && (
         <h2>You won the match, {opponentName} has left the room!</h2>
       )}
+      <br />
+      {finishedState ? (
+        <Link
+          to={"/"}
+          className="bg-gradient-to-r from-gray-700 to-blue-400 hover:from-gray-800 hover:to-blue-500 text-white px-4 py-2 rounded flex items-center"
+        >
+          Go Back Home
+        </Link>
+      ) : null}
     </div>
   );
 }
