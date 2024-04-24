@@ -17,10 +17,7 @@ export default function Navbar() {
         TIC TAC TOE X/O
       </Link>
       <div className="flex space-x-4">
-        <button
-          onClick={handleLogout}
-          className="text-white bg-gray-700 px-4 py-2 rounded"
-        >
+        <button onClick={handleLogout} className="text-white bg-gray-700 px-4 py-2 rounded">
           Logout
         </button>
       </div>
