@@ -6,6 +6,8 @@ import ChatBox from "../components/ChatBox";
 export const UserContext = createContext({
   name: localStorage.getItem("username")
 })
+
+
 export default function Home() {
   const [users, setUsers] = useState([]);
   const [newMessage, setNewMessage] = useState("");

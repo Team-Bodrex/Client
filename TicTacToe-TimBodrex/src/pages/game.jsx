@@ -185,7 +185,7 @@ function Game() {
       </div>
       <div className="m-3">
         <div className="m-3">
-        <h1 className="game-heading water-background">Tic Tac Toe</h1>
+          <h1 className="game-heading water-background">Tic Tac Toe</h1>
         </div>
         <div className="square-wrapper">
           {gameState.map((arr, rowIndex) =>
