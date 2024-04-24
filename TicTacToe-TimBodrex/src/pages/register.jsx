@@ -24,9 +24,11 @@ export default function Register() {
           password: password,
         },
       });
+      console.log(data)
       Swal.fire("Success", "User registered successfully", "success");
       navigate("/login");
     } catch (error) {
+      console.log(error)
       if (error.response && error.response.data.message) {
         Swal.fire("Error", error.response.data.message, "error");
       } else {

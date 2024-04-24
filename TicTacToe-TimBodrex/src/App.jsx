@@ -12,36 +12,42 @@ import Register from "./pages/register";
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/login",
-      element: <Login />,
-      // loader: () => {
-      //   if (localStorage.access_token) {
-      //     return redirect("/");
-      //   }
-      //   return null;
-      // },
-    },
-    {
-      path: "/register",
-      element: <Register />,
-    },
-    {
       element: <MainLayout />,
+      loader: () => {
+        if (!localStorage.access_token) {
+          return redirect("/login");
+        }
+        return null;
+      },
       children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
-        {
-          path: "/home",
-          element: <Home />,
-        },
-        {
-          path: "/game",
-          element: <Game />,
-        },
-      ],
-    },
+            {
+              path: "/",
+              element: <Home />,
+            },
+            {
+              path: "/home",
+              element: <Home />,
+            },
+            {
+              path: "/game",
+              element: <Game />,
+            },
+          ]
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+        loader: () => {
+          if (localStorage.access_token) {
+            return redirect("/login");
+          }
+          return null;
+        }
+      }
   ]);
 
   return <RouterProvider router={router} />;
