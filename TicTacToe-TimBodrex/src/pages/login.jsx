@@ -11,8 +11,6 @@ export default function Login() {
   const urlParams = new URLSearchParams(queryString);
   const codeParam = urlParams.get("code");
 
-  console.log(email, password);
-
   // Untuk Login GITHUB
   function getGithub() {
     if (codeParam && localStorage.getItem("token") == null) {
@@ -25,7 +23,7 @@ export default function Login() {
               "/github-login?code=" +
               codeParam,
           });
-          console.log(data, "<<<<<client");
+          // console.log(data, "<<<<<client");
           if (data.token) {
             localStorage.setItem("token", data.token);
             localStorage.email = data.email;
@@ -34,6 +32,12 @@ export default function Login() {
           navigate("/");
         } catch (error) {
           console.log(error);
+          const errMsg = error.response.data.message;
+          Swal.fire({
+            title: "Error!",
+            text: errMsg,
+            icon: "error",
+          });
         }
       }
       getAccessToken();
@@ -68,6 +72,12 @@ export default function Login() {
     } catch (error) {
       if (error.response && error.response.status === 401) {
         Swal.fire("Error", "Invalid email or password", "error");
+      } else if (error.response && error.response.status === 403) {
+        Swal.fire(
+          "Error",
+          "Account not found. You need to create an account first!",
+          "error"
+        );
       } else {
         Swal.fire("Error", "An error occurred while logging in", "error");
       }
@@ -84,6 +94,12 @@ export default function Login() {
       // console.log(data.access_token);
     } catch (error) {
       console.log(error);
+      const errMsg = error.response.data.message;
+      Swal.fire({
+        title: "Error!",
+        text: errMsg,
+        icon: "error",
+      });
     }
   }
   return (
@@ -104,7 +120,7 @@ export default function Login() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-white dark:text-zinc-300"
+                  className="block text-sm font-medium text-white dark:text-zinc-300 mx-2 my-1"
                 >
                   Email
                 </label>
@@ -121,7 +137,7 @@ export default function Login() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-white dark:text-zinc-300"
+                  className="block text-sm font-medium text-white dark:text-zinc-300 mx-2 my-1"
                 >
                   Password
                 </label>
@@ -138,13 +154,17 @@ export default function Login() {
               <button
                 type="submit"
                 className="w-full bg-blue-500 text-white p-2 rounded-lg"
+                style={{ margin: "5% 0", marginTop: "6%" }}
               >
                 Login
               </button>
               <div className="text-center text-sm mt-4">
-                <Link to="/register" className="text-blue-400">
-                  Sign Up?
-                </Link>
+                <p style={{ color: "white" }}>
+                  No account yet?{" "}
+                  <Link to="/register" className="text-blue-300">
+                    Sign Up Here!
+                  </Link>
+                </p>
               </div>
             </form>
             <div className="mt-4">
