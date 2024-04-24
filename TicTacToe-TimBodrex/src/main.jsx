@@ -1,6 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import { redirect,createBrowserRouter,RouterProvider } from "react-router-dom";
+import {
+  redirect,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import Login from "./pages/login";
 import Game from "./pages/game";
 import Home from "./pages/home";
@@ -8,24 +12,28 @@ import MainLayout from "./pages/MainLayout";
 import Register from "./pages/register";
 
 const router = createBrowserRouter([
-    {
-      element: <MainLayout />,
-      loader: () => {
-        if (!localStorage.getItem("token")) {
-          return redirect('/login');
-        }
-        return null;
+  {
+    element: <MainLayout />,
+    loader: () => {
+      if (!localStorage.getItem("token")) {
+        return redirect("/login");
+      }
+      return null;
+    },
+    children: [
+      {
+        path: "/",
+        element: <Home />,
       },
-      children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
-        {
-          path: "/game",
-          element: <Game />,
-        },
-      ],
+      {
+        path: "/home",
+        element: <Home />,
+      },
+      {
+        path: "/game",
+        element: <Game />,
+      },
+    ],
   },
   {
     path: "/register",
@@ -36,16 +44,15 @@ const router = createBrowserRouter([
     element: <Login />,
     loader: () => {
       if (localStorage.getItem("token")) {
-        return redirect('/')
+        return redirect("/");
       }
-      return null
-    }
-  }
-  ]);
+      return null;
+    },
+  },
+]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
-)
-
+  </React.StrictMode>
+);
