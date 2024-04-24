@@ -30,10 +30,7 @@ function Game() {
   const checkWinner = () => {
     // row dynamic
     for (let row = 0; row < gameState.length; row++) {
-      if (
-        gameState[row][0] === gameState[row][1] &&
-        gameState[row][1] === gameState[row][2]
-      ) {
+      if (gameState[row][0] === gameState[row][1] && gameState[row][1] === gameState[row][2]) {
         setFinishedArrayState([row * 3 + 0, row * 3 + 1, row * 3 + 2]);
         return gameState[row][0];
       }
@@ -41,26 +38,17 @@ function Game() {
 
     // column dynamic
     for (let col = 0; col < gameState.length; col++) {
-      if (
-        gameState[0][col] === gameState[1][col] &&
-        gameState[1][col] === gameState[2][col]
-      ) {
+      if (gameState[0][col] === gameState[1][col] && gameState[1][col] === gameState[2][col]) {
         setFinishedArrayState([0 * 3 + col, 1 * 3 + col, 2 * 3 + col]);
         return gameState[0][col];
       }
     }
 
-    if (
-      gameState[0][0] === gameState[1][1] &&
-      gameState[1][1] === gameState[2][2]
-    ) {
+    if (gameState[0][0] === gameState[1][1] && gameState[1][1] === gameState[2][2]) {
       return gameState[0][0];
     }
 
-    if (
-      gameState[0][2] === gameState[1][1] &&
-      gameState[1][1] === gameState[2][0]
-    ) {
+    if (gameState[0][2] === gameState[1][1] && gameState[1][1] === gameState[2][0]) {
       return gameState[0][2];
     }
 
@@ -166,77 +154,54 @@ function Game() {
   }
 
   return (
-    <div className="main-div">
-      <div className="move-detection">
-        <div
-          className={`left ${
-            currentPlayer === playingAs ? "current-move-" + currentPlayer : ""
-          }`}
-        >
-          {playerName}
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="main-div">
+        <div className="move-detection text-center">
+          <div className={`left ${currentPlayer === playingAs ? "current-move-" + currentPlayer : ""}text-center text-white`}>{playerName}</div>
+          <div className={`right ${currentPlayer !== playingAs ? "current-move-" + currentPlayer : ""} text-center text-white`}>{opponentName}</div>
         </div>
-        <div
-          className={`right ${
-            currentPlayer !== playingAs ? "current-move-" + currentPlayer : ""
-          }`}
-        >
-          {opponentName}
-        </div>
-      </div>
-      <div className="m-3">
         <div className="m-3">
-          <h1 className="game-heading water-background">Tic Tac Toe</h1>
+          <div className="m-3">
+            <h1 className="game-heading water-background">Tic Tac Toe</h1>
+          </div>
+          <div className="square-wrapper">
+            {gameState.map((arr, rowIndex) =>
+              arr.map((e, colIndex) => {
+                return (
+                  <Square
+                    socket={socket}
+                    playingAs={playingAs}
+                    gameState={gameState}
+                    finishedArrayState={finishedArrayState}
+                    finishedState={finishedState}
+                    currentPlayer={currentPlayer}
+                    setCurrentPlayer={setCurrentPlayer}
+                    setGameState={setGameState}
+                    id={rowIndex * 3 + colIndex}
+                    key={rowIndex * 3 + colIndex}
+                    currentElement={e}
+                  />
+                );
+              })
+            )}
+          </div>
+          {finishedState && finishedState !== "opponentLeftMatch" && finishedState !== "draw" && (
+            <h3 className="finished-state">{finishedState === playingAs ? "You " : finishedState} won the game.</h3>
+          )}
+          {finishedState && finishedState !== "opponentLeftMatch" && finishedState === "draw" && <h3 className="finished-state">It's a Draw</h3>}
         </div>
-        <div className="square-wrapper">
-          {gameState.map((arr, rowIndex) =>
-            arr.map((e, colIndex) => {
-              return (
-                <Square
-                  socket={socket}
-                  playingAs={playingAs}
-                  gameState={gameState}
-                  finishedArrayState={finishedArrayState}
-                  finishedState={finishedState}
-                  currentPlayer={currentPlayer}
-                  setCurrentPlayer={setCurrentPlayer}
-                  setGameState={setGameState}
-                  id={rowIndex * 3 + colIndex}
-                  key={rowIndex * 3 + colIndex}
-                  currentElement={e}
-                />
-              );
-            })
-          )}
-        </div>
-        {finishedState &&
-          finishedState !== "opponentLeftMatch" &&
-          finishedState !== "draw" && (
-            <h3 className="finished-state">
-              {finishedState === playingAs ? "You " : finishedState} won the
-              game.
-            </h3>
-          )}
-        {finishedState &&
-          finishedState !== "opponentLeftMatch" &&
-          finishedState === "draw" && (
-            <h3 className="finished-state">It's a Draw</h3>
-          )}
+        {!finishedState && opponentName && <h2>You are playing against {opponentName}</h2>}
+        {finishedState && finishedState === "opponentLeftMatch" && <h2>You won the match, {opponentName} has left the room!</h2>}
+        <br />
+        {finishedState ? (
+          <Link
+            to={"/"}
+            className="bg-gradient-to-r from-gray-700 to-blue-400 hover:from-gray-800 hover:to-blue-500 text-white px-4 py-2 rounded flex items-center"
+          >
+            Go Back Home
+          </Link>
+        ) : null}
       </div>
-      {!finishedState && opponentName && (
-        <h2>You are playing against {opponentName}</h2>
-      )}
-      {finishedState && finishedState === "opponentLeftMatch" && (
-        <h2>You won the match, {opponentName} has left the room!</h2>
-      )}
-      <br />
-      {finishedState ? (
-        <Link
-          to={"/"}
-          className="bg-gradient-to-r from-gray-700 to-blue-400 hover:from-gray-800 hover:to-blue-500 text-white px-4 py-2 rounded flex items-center"
-        >
-          Go Back Home
-        </Link>
-      ) : null}
     </div>
   );
 }

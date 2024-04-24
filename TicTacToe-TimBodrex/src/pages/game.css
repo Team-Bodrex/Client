@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5vh;
   flex-direction: column;
 }
 
@@ -50,6 +49,7 @@
 
 .left,
 .right {
+  display: flex;
   height: 30px;
   width: 120px;
   background-color: red;
@@ -60,6 +60,8 @@
   font-size: 18px;
   padding-bottom: 5px;
   text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .waiting {

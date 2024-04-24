@@ -4,9 +4,8 @@ import Sidebar from "../components/SideBar";
 import ChatBox from "../components/ChatBox";
 
 export const UserContext = createContext({
-  name: localStorage.getItem("username")
-})
-
+  name: localStorage.getItem("username"),
+});
 
 export default function Home() {
   const [users, setUsers] = useState([]);
@@ -55,15 +54,7 @@ export default function Home() {
   return (
     <div className="flex h-screen">
       <Sidebar />
-      <ChatBox
-        messages={messages}
-        newMessage={newMessage}
-        handleNewMessage={handleNewMessage}
-        handleSendMessage={handleSendMessage}
-      />
-  
+      <ChatBox messages={messages} newMessage={newMessage} handleNewMessage={handleNewMessage} handleSendMessage={handleSendMessage} />
     </div>
   );
 }
-
-

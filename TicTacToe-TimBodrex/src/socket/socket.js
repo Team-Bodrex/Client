@@ -1,3 +1,3 @@
 import { io } from "socket.io-client";
-const socket = io("http://localhost:3000", { autoConnect: false });
-export default socket
+const socket = io("https://tictactoe-timbodrex-server.valdifirstianto.online", { autoConnect: false });
+export default socket;
