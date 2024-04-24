@@ -15,9 +15,24 @@ export default function Register() {
       return;
     }
     try {
-      
+      let { data } = await axios({
+        url: import.meta.env.VITE_API_BASE_URL + "/register",
+        method: "POST",
+        data: {
+          username: username,
+          email: email,
+          password: password,
+        },
+      });
+      Swal.fire("Success", "User registered successfully", "success");
+      navigate("/login");
     } catch (error) {
-      
+      if (error.response && error.response.data.message) {
+        Swal.fire("Error", error.response.data.message, "error");
+      } else {
+        Swal.fire("Error", "An error occurred while registering", "error");
+      }
+      console.log(error.response);
     }
   };
   return (
