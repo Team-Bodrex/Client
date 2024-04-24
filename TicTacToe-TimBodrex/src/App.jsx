@@ -50,11 +50,3 @@ function App() {
 
   return <RouterProvider router={router} />;
 }
-
-function App() {
-  return (
-    <>
-    <RouterProvider/>
-    </>
-  )
-}

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import socket from "../socket/socket";
 import Sidebar from "../components/SideBar";
 import ChatBox from "../components/ChatBox";
 
-
+export const UserContext = createContext({
+  name: localStorage.getItem("username")
+})
 export default function Home() {
   const [users, setUsers] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -50,7 +52,7 @@ export default function Home() {
 
   return (
     <div className="flex h-screen">
-      <Sidebar users={users} />
+      <Sidebar />
       <ChatBox
         messages={messages}
         newMessage={newMessage}
