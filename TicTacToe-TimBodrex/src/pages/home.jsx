@@ -3,9 +3,7 @@ import socket from "../socket/socket";
 import Sidebar from "../components/SideBar";
 import ChatBox from "../components/ChatBox";
 
-export const UserContext = createContext({
-  name: localStorage.getItem("username"),
-});
+export const UserContext = createContext([]);
 
 export default function Home() {
   const [users, setUsers] = useState([]);
@@ -53,8 +51,10 @@ export default function Home() {
 
   return (
     <div className="flex h-screen">
-      <Sidebar />
-      <ChatBox messages={messages} newMessage={newMessage} handleNewMessage={handleNewMessage} handleSendMessage={handleSendMessage} />
+      <UserContext.Provider value={users}>
+        <Sidebar />
+        <ChatBox messages={messages} newMessage={newMessage} handleNewMessage={handleNewMessage} handleSendMessage={handleSendMessage} />
+      </UserContext.Provider>
     </div>
   );
 }
