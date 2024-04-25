@@ -1,12 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { FiUser, FiUserCheck } from "react-icons/fi";
 
-const ChatBox = ({
-  messages,
-  newMessage,
-  handleNewMessage,
-  handleSendMessage,
-}) => {
+const ChatBox = ({ messages, newMessage, handleNewMessage, handleSendMessage }) => {
   const chatContainerRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -25,38 +20,17 @@ const ChatBox = ({
         href="/game"
         className="inline-flex items-center bg-gradient-to-r from-gray-700 to-blue-400 text-white px-4 py-2 rounded-md shadow-md hover:from-gray-800 hover:to-blue-500 transition-colors duration-300"
       >
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/566/566294.png"
-          alt="Tic Tac Toe"
-          className="h-6 w-6 mr-2"
-        />
+        <img src="https://cdn-icons-png.flaticon.com/512/566/566294.png" alt="Tic Tac Toe" className="h-6 w-6 mr-2" />
         <span>Play TicTacToe</span>
       </a>
-      <div
-        className="chat-container"
-        ref={chatContainerRef}
-        style={{ maxHeight: "400px", overflowY: "scroll" }}
-      >
-        <h2
-          className="text-lg font-semibold"
-          style={{ margin: "5% 0", marginBottom: "2%" }}
-        >
-          Chat Box:
-        </h2>
+      <h2 className="text-lg font-semibold" style={{ margin: "2% 0", marginBottom: "2%" }}>
+        Chat Box:
+      </h2>
+      <div className="chat-container" ref={chatContainerRef} style={{ maxHeight: "350px", overflowY: "scroll" }}>
         {messages.map((msg, index) => (
           <div key={index} className="flex items-center mb-2">
-            {msg.from === localStorage.username ? (
-              <FiUserCheck className="text-green-600 mr-2" />
-            ) : (
-              <FiUser className="text-red-600 mr-2" />
-            )}
-            <p
-              className={
-                msg.from === localStorage.username
-                  ? "text-blue-700"
-                  : "text-gray-700"
-              }
-            >
+            {msg.from === localStorage.username ? <FiUserCheck className="text-green-600 mr-2" /> : <FiUser className="text-red-600 mr-2" />}
+            <p className={msg.from === localStorage.username ? "text-blue-700" : "text-gray-700"}>
               {msg.from === localStorage.username ? "You: " : `${msg.from}: `}
               {msg.message}
             </p>
