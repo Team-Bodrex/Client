@@ -7,6 +7,7 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.clear();
     navigate("/login");
+    window.location.reload();
   };
   return (
     <div className="bg-gradient-to-r from-gray-700 to-blue-400 p-4 flex flex-col sm:flex-row justify-between items-center">
